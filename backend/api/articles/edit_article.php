@@ -1,6 +1,9 @@
 <?php
 
 global $pdo;
+
+use includes\Logger;
+
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 
@@ -68,12 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] === "PUT") {
 
         http_response_code(200);
         echo json_encode(['message' => 'Article information updated successfully.']);
-
+        Logger::info("Article information updated successfully.");
     } catch (PDOException $e) {
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to update article information: " . $e->getMessage()]);
+        Logger::error("500, Failed to update article information: " . $e->getMessage());
     }
 } else {
     http_response_code(405); // Method Not Allowed
     echo json_encode(["error" => "Only PUT method is allowed"]);
+    Logger::error("405, Only PUT method is allowed");
 }

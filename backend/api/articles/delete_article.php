@@ -16,12 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET["id"])) {
         $pdo->beginTransaction();
 
         $get_stmt = $pdo->prepare("SELECT * FROM articles WHERE id = :article_id AND user_id = :user_id");
-        $get_stmt->execute(['article_id' => $article_id, 'user_id' => $user_id]);
+        $get_stmt->bindParam('article_id', $article_id, PDO::PARAM_INT);
+        $get_stmt->bindParam('user_id', $user_id, PDO::PARAM_INT);
+        $get_stmt->execute();
         $article = $get_stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($article) {
             $delete_stmt = $pdo->prepare("DELETE FROM articles WHERE id = :id");
-            $delete_stmt->execute(['id' => $article_id]);
+            $delete_stmt->execute();
 
             $pdo->commit();
 

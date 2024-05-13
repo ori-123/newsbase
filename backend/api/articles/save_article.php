@@ -22,7 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $stmt = $pdo->prepare("INSERT INTO articles (user_id, title, url, description, image_url) 
                                         VALUES (:user_id, :title, :url, :description, :image_url)");
-        $stmt->execute(['user_id' => $user_id, 'title' => $title, 'url' => $url, 'description' => $description, 'image_url' => $image_url]);
+
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':url', $url, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':image_url', $image_url, PDO::PARAM_STR);
+        $stmt->execute();
 
         $pdo->commit();
 

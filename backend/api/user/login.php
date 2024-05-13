@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $pdo->beginTransaction();
 
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->execute(['username' => $username]);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {

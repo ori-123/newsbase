@@ -12,7 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
         $user_id = sanitize_input($_SESSION['user_id']);
 
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = :user_id");
-        $stmt->execute(['user_id' => $user_id]);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
 
         $_SESSION = array();
         session_destroy();

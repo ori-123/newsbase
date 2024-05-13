@@ -12,7 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $user_id = $_SESSION['user_id'];
 
         $stmt = $pdo->prepare("SELECT * FROM articles WHERE user_id = :user_id");
-        $stmt->execute(['user_id' => $user_id]);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
 
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

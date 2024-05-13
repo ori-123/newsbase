@@ -10,12 +10,6 @@ global $pdo;
 
 if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET["id"])) {
     $article_id = sanitize_input($_GET["id"]);
-
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: /login.php");
-        exit();
-    }
-
     $user_id = sanitize_input($_SESSION['user_id']);
 
     try {

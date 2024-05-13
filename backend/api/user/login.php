@@ -4,6 +4,8 @@ require_once '../../includes/helpers.php';
 
 global $pdo;
 
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = sanitize_input($_POST["username"]);
     $password = sanitize_input($_POST["password"]);
@@ -19,6 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+
+        session_regenerate_id(true);
+
         http_response_code(200); // OK
         echo json_encode(["message" => "User authenticated successfully"]);
     } else {

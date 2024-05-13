@@ -16,21 +16,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->execute(['username' => $username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    try {
+        $pdo->beginTransaction();
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->execute(['username' => $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        session_regenerate_id(true);
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
 
-        http_response_code(200); // OK
-        echo json_encode(["message" => "User authenticated successfully"]);
-    } else {
-        http_response_code(401); // Unauthorized
-        echo json_encode(["error" => "Invalid username or password"]);
+            session_regenerate_id(true);
+
+            $pdo->commit();
+
+            http_response_code(200); // OK
+            echo json_encode(["message" => "User authenticated successfully"]);
+        } else {
+            http_response_code(401); // Unauthorized
+            echo json_encode(["error" => "Invalid username or password"]);
+        }
+    } catch (PDOException $e) {
+        $pdo->rollBack();
+        http_response_code(500); // Internal Server Error
+        echo json_encode(["error" => "Failed to authenticate user."]);
     }
 } else {
     http_response_code(405); // METHOD not allowed

@@ -14,7 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $image_url = sanitize_input($_POST["image_url"]);
     $user_id = sanitize_input($_SESSION['user_id']);
 
-    $stmt = $pdo->prepare("INSERT INTO articles (user_id, title, url, description, image_url) VALUES (:user_id, :title, :url, :description, :image_url)");
+    $stmt = $pdo->prepare("INSERT INTO articles (user_id, title, url, description, image_url) 
+                                        VALUES (:user_id, :title, :url, :description, :image_url)");
     $stmt->execute(['title' => $title, 'url' => $url, 'description' => $description, 'image_url' => $image_url]);
 
     http_response_code(201); // Created

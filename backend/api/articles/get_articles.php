@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Check if articles were found
         if ($articles) {
             http_response_code(200); // OK
             echo json_encode($articles);

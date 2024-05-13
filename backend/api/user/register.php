@@ -5,6 +5,7 @@ require_once '../../includes/helpers.php';
 global $pdo;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $username = sanitize_input($_POST["username"]);
     $password = sanitize_input($_POST["password"]);
 
@@ -16,15 +17,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->execute(['username' => $username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user['password'])) {
-        http_response_code(200); // OK
-        echo json_encode(["message" => "User authenticated successfully"]);
-    } else {
-        http_response_code(401); // Unauthorized
-        echo json_encode(["error" => "Invalid username or password"]);
+    if ($stmt->fetch(PDO::FETCH_ASSOC)) {
+        http_response_code(409); // Conflict
+        echo json_encode(["error" => "Username already taken"]);
+        exit();
     }
+
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+    $stmt->execute(['username' => $username, 'password' => $hashed_password]);
+
+    http_response_code(201); // Created
+    echo json_encode(["message" => "User registered successfully"]);
 } else {
     http_response_code(405); // METHOD not allowed
     echo json_encode(["error" => "Only POST method is allowed"]);

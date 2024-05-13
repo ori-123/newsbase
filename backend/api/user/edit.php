@@ -1,5 +1,7 @@
 <?php
 
+use includes\Logger;
+
 global $pdo;
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
@@ -26,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "PUT") {
         if (!$user) {
             http_response_code(404); // Not Found
             echo json_encode(["error" => "User not found"]);
+            Logger::error("User not found");
             exit();
         }
 
@@ -55,16 +58,20 @@ if ($_SERVER["REQUEST_METHOD"] === "PUT") {
 
             http_response_code(200);
             echo json_encode(['message' => 'User information updated successfully.']);
+            Logger::info("User information updated successfully");
         } else {
             // Incorrect password
             http_response_code(401); // Unauthorized
             echo json_encode(["error" => "Incorrect password"]);
+            Logger::error("401, Incorrect password");
         }
     } catch (PDOException $e) {
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to update user information: " . $e->getMessage()]);
+        Logger::error("500, Failed to update user information: " . $e->getMessage());
     }
 } else {
     http_response_code(405); // Method Not Allowed
     echo json_encode(["error" => "Only PUT method is allowed"]);
+    Logger::error("405, Only PUT method is allowed");
 }

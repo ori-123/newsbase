@@ -1,5 +1,7 @@
 <?php
 
+use includes\Logger;
+
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 
@@ -29,16 +31,20 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET["id"])) {
 
             http_response_code(200); // OK
             echo json_encode(["message" => "Article deleted successfully"]);
+            Logger::info("Article deleted successfully");
         } else {
             http_response_code(403); // Forbidden
             echo json_encode(["error" => "You do not have permission to delete this article or it does not exist."]);
+            Logger::error("403, You do not have permission to delete this article or it does not exist.");
         }
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to delete article: " . $e->getMessage()]);
+        Logger::error("500, Failed to delete article: " . $e->getMessage());
     }
 } else {
     http_response_code(405); // METHOD not allowed
     echo json_encode(["error" => "Only DELETE method is allowed"]);
+    Logger::error("405, Only DELETE method is allowed");
 }

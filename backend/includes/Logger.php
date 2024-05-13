@@ -1,6 +1,6 @@
 <?php
 
-namespace logger;
+namespace includes;
 
 class Logger
 {

@@ -1,5 +1,7 @@
 <?php
 
+use includes\Logger;
+
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 
@@ -34,12 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         http_response_code(201); // Created
         echo json_encode(["message" => "Article saved successfully"]);
+        Logger::info("Article created successfully");
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to save article: " . $e->getMessage()]);
+        Logger::error("500, Failed to save article: " . $e->getMessage());
     }
 } else {
     http_response_code(405); // Method Not Allowed
     echo json_encode(["error" => "Only POST method is allowed"]);
+    Logger::error("405, Only POST method is allowed");
 }

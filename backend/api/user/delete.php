@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
         exit();
     } catch (PDOException $e) {
         http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Failed to delete user."]);
+        echo json_encode(["error" => "Failed to delete user: " . $e->getMessage()]);
     }
 } else {
     http_response_code(405); // Method Not Allowed

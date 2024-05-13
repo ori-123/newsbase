@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Failed to save article."]);
+        echo json_encode(["error" => "Failed to save article: " . $e->getMessage()]);
     }
 } else {
     http_response_code(405); // Method Not Allowed

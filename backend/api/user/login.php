@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Failed to authenticate user."]);
+        echo json_encode(["error" => "Failed to authenticate user: " . $e->getMessage()]);
     }
 } else {
     http_response_code(405); // METHOD not allowed

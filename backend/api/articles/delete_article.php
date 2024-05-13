@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET["id"])) {
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Failed to delete article."]);
+        echo json_encode(["error" => "Failed to delete article: " . $e->getMessage()]);
     }
 } else {
     http_response_code(405); // METHOD not allowed

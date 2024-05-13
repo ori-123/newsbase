@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         }
     } catch (PDOException $e) {
         http_response_code(500); // Internal Server Error
-        echo json_encode(["error" => "Failed to retrieve articles from the database."]);
+        echo json_encode(["error" => "Failed to retrieve articles from the database: " . $e->getMessage()]);
     }
 } else {
     http_response_code(405); // Method Not Allowed

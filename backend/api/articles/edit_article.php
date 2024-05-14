@@ -6,6 +6,8 @@ use includes\Logger;
 
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
+require_once '../../includes/cors.php';
+require_once '../../vendor/autoload.php';
 
 session_start();
 check_login(); // Check if user is logged in, reroute to login page on failure.

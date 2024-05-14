@@ -4,6 +4,8 @@ use includes\Logger;
 
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
+require_once '../../includes/cors.php';
+require_once '../../vendor/autoload.php';
 
 global $pdo;
 

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('login-password').value;
 
         // Send request to backend to handle login
-        fetch('/backend/api/user/login.php', {
+        fetch('http://localhost:8000/api/user/login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('register-password').value;
 
         // Make a request to backend to handle registration
-        fetch('/backend/api/user/register.php', {
+        fetch('http://localhost:8000/api/user/register.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

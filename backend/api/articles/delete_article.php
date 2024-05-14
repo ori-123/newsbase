@@ -6,23 +6,26 @@ require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 
 session_start();
-check_login();
+check_login(); // Check if user is logged in, reroute to login page on failure.
 
 global $pdo;
 
 if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET["id"])) {
+    // Get article id and user id from GET data and SESSION respectively
     $article_id = sanitize_input($_GET["id"]);
     $user_id = sanitize_input($_SESSION['user_id']);
 
     try {
         $pdo->beginTransaction();
 
+        // Find article in database
         $get_stmt = $pdo->prepare("SELECT * FROM articles WHERE id = :article_id AND user_id = :user_id");
         $get_stmt->bindParam('article_id', $article_id, PDO::PARAM_INT);
         $get_stmt->bindParam('user_id', $user_id, PDO::PARAM_INT);
         $get_stmt->execute();
         $article = $get_stmt->fetch(PDO::FETCH_ASSOC);
 
+        // If article is found, delete
         if ($article) {
             $delete_stmt = $pdo->prepare("DELETE FROM articles WHERE id = :id");
             $delete_stmt->execute();

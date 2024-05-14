@@ -7,7 +7,7 @@ require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 
 session_start();
-check_login();
+check_login(); // Check if user is logged in, reroute to login page on failure.
 
 if ($_SERVER["REQUEST_METHOD"] === "PUT") {
     try {

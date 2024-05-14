@@ -7,10 +7,11 @@ require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 
 session_start();
-check_login();
+check_login(); // Check if user is logged in, reroute to login page on failure.
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     try {
+        //Get user id from session and use it to select all articles from the user
         $user_id = $_SESSION['user_id'];
 
         $stmt = $pdo->prepare("SELECT * FROM articles WHERE user_id = :user_id");

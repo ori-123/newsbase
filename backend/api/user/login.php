@@ -10,9 +10,11 @@ global $pdo;
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Get username and password from POST data
     $username = sanitize_input($_POST["username"]);
     $password = sanitize_input($_POST["password"]);
 
+    // Validate that username and password are present
     if (empty($username) || empty($password)) {
         http_response_code(400); // Bad request
         echo json_encode(["error" => "Username and password are required"]);
@@ -23,11 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $pdo->beginTransaction();
 
+        // Find user
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // If user is found, verify password
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];

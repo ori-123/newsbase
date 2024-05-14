@@ -9,9 +9,11 @@ global $pdo;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    // Get username and password from POST data
     $username = sanitize_input($_POST["username"]);
     $password = sanitize_input($_POST["password"]);
 
+    // Validate that username and password are present
     if (empty($username) || empty($password)) {
         http_response_code(400); // Bad request
         echo json_encode(["error" => "Username and password are required"]);
@@ -22,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $pdo->beginTransaction();
 
+        // Hash password given in POST data and use it to create new user in database
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");

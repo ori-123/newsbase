@@ -8,9 +8,10 @@ require_once '../../includes/helpers.php';
 global $pdo;
 
 session_start();
-check_login();
+check_login(); // Check if user is logged in, reroute to login page on failure.
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Get article details from POST data and user id from SESSION
     $title = sanitize_input($_POST["title"]);
     $url = sanitize_input($_POST["url"]);
     $description = sanitize_input($_POST["description"]);
@@ -22,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $pdo->beginTransaction();
 
+        // Insert new article into database
         $stmt = $pdo->prepare("INSERT INTO articles (user_id, title, url, description, image_url) 
                                         VALUES (:user_id, :title, :url, :description, :image_url)");
 

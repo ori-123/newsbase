@@ -1,8 +1,10 @@
 <?php
 
+global $pdo;
+
 use includes\Logger;
 
-global $pdo;
+// Include necessary files and start session
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 require_once '../../includes/cors.php';
@@ -15,8 +17,18 @@ if ($_SERVER["REQUEST_METHOD"] === "PUT") {
     try {
         $user_id = $_SESSION['user_id'];
 
-        // Get input data from request
-        parse_str(file_get_contents("php://input"), $put_data);
+        // Retrieve the JSON data from the request body
+        $json_data = file_get_contents('php://input');
+        $put_data = json_decode($json_data, true);
+
+        // Check if JSON data was successfully decoded
+        if ($put_data === null) {
+            http_response_code(400); // Bad request
+            echo json_encode(["error" => "Invalid JSON data"]);
+            exit();
+        }
+
+        // Get input data from decoded JSON data
         $current_password = $put_data['current_password'];
         $new_username = isset($put_data['new_username']) ? $put_data['new_username'] : null;
         $new_password = isset($put_data['new_password']) ? $put_data['new_password'] : null;

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     // Redirect to article list page upon successful login
-                    window.location.href = '/articles.html';
+                    window.location.href = '/frontend/public_html/articles.html';
                 } else {
                     // Handle login error
                     console.error('Login failed:', response.statusText);
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     // Redirect to the login page or perform any other actions upon successful registration
-                    window.location.href = '/index.html';
+                    window.location.href = '/frontend/public_html/index.html';
                 } else {
                     // Handle registration error
                     console.error('Registration failed:', response.statusText);

@@ -12,9 +12,20 @@ global $pdo;
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get username and password from POST data
-    $username = sanitize_input($_POST["username"]);
-    $password = sanitize_input($_POST["password"]);
+    // Retrieve the JSON data from the request body
+    $json_data = file_get_contents('php://input');
+    $data = json_decode($json_data, true);
+
+    // Check if JSON data was successfully decoded
+    if ($data === null) {
+        http_response_code(400); // Bad request
+        echo json_encode(["error" => "Invalid JSON data"]);
+        exit();
+    }
+
+    // Get username and password from decoded JSON data
+    $username = sanitize_input($data["username"]);
+    $password = sanitize_input($data["password"]);
 
     // Validate that username and password are present
     if (empty($username) || empty($password)) {

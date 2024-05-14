@@ -1,22 +1,26 @@
 <?php
 
-global $pdo;
-
 use includes\Logger;
 
+// Include necessary files and start session
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 require_once '../../includes/cors.php';
 require_once '../../vendor/autoload.php';
 
+global $pdo;
+
+// Start session and check login status
 session_start();
 check_login(); // Check if user is logged in, reroute to login page on failure.
 
+// Check if the request method is PUT
 if ($_SERVER["REQUEST_METHOD"] === "PUT") {
     try {
+        // Get JSON data from the request body
+        $put_data = json_decode(file_get_contents("php://input"), true);
 
-        // Get input data from request
-        parse_str(file_get_contents("php://input"), $put_data);
+        // Extract data from the JSON object
         $article_id = $put_data['article_id'];
         $new_url = isset($put_data['new_url']) ? $put_data['new_url'] : null;
         $new_title = isset($put_data['new_title']) ? $put_data['new_title'] : null;
@@ -71,15 +75,18 @@ if ($_SERVER["REQUEST_METHOD"] === "PUT") {
         // Execute the statement
         $stmt->execute();
 
+        // Set response code and message
         http_response_code(200);
         echo json_encode(['message' => 'Article information updated successfully.']);
         Logger::info("Article information updated successfully.");
     } catch (PDOException $e) {
+        // Handle database errors
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to update article information: " . $e->getMessage()]);
         Logger::error("500, Failed to update article information: " . $e->getMessage());
     }
 } else {
+    // Respond with error for unsupported HTTP method
     http_response_code(405); // Method Not Allowed
     echo json_encode(["error" => "Only PUT method is allowed"]);
     Logger::error("405, Only PUT method is allowed");

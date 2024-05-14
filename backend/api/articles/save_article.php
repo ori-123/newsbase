@@ -2,6 +2,7 @@
 
 use includes\Logger;
 
+// Include necessary files and start session
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
 require_once '../../includes/cors.php';
@@ -13,14 +14,22 @@ session_start();
 check_login(); // Check if user is logged in, reroute to login page on failure.
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get article details from POST data and user id from SESSION
-    $title = sanitize_input($_POST["title"]);
-    $url = sanitize_input($_POST["url"]);
-    $description = sanitize_input($_POST["description"]);
-    $image_url = sanitize_input($_POST["image_url"]);
-    $user_id = sanitize_input($_SESSION['user_id']);
+    // Get article details from JSON data and user id from SESSION
+    $json_data = file_get_contents('php://input');
+    $article_data = json_decode($json_data, true);
 
+    // Check if JSON data was successfully decoded
+    if ($article_data === null) {
+        http_response_code(400); // Bad request
+        echo json_encode(["error" => "Invalid JSON data"]);
+        exit();
+    }
 
+    $title = sanitize_input($article_data["title"]);
+    $url = sanitize_input($article_data["url"]);
+    $description = sanitize_input($article_data["description"]);
+    $image_url = sanitize_input($article_data["image_url"]);
+    $user_id = $_SESSION['user_id'];
 
     try {
         $pdo->beginTransaction();
@@ -40,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         http_response_code(201); // Created
         echo json_encode(["message" => "Article saved successfully"]);
-        Logger::info("Article created successfully");
+        Logger::info("Article saved successfully");
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error

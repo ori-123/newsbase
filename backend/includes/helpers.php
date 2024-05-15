@@ -1,4 +1,6 @@
 <?php
+
+require_once 'cors.php';
 function sanitize_input($data)
 {
     return htmlspecialchars(trim($data));
@@ -11,7 +13,7 @@ function check_login() {
         $_SESSION = array();
         session_destroy();
         echo json_encode("User needs to log in to continue");
-        header("Location: /login.php");
+        header("Location: /api/user/login.php");
         exit();
     }
 }

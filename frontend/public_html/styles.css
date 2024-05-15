@@ -42,9 +42,18 @@ header {
     cursor: pointer; /* Add cursor pointer */
 }
 
+#edit_profile {
+    color: #333333;
+}
+
+#logout {
+    color: #333333;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
+    color: #333333;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -56,12 +65,13 @@ header {
 .dropdown-content a {
     display: block;
     padding: 10px;
-    color: #333;
+    color: #333333; !important;
     text-decoration: none;
 }
 
 .dropdown-content a:hover {
     background-color: #ddd;
+    color: #333333;
 }
 
 /* Show dropdown content when profile button is hovered over */
@@ -72,7 +82,7 @@ header {
 /* Button styling */
 .btn {
     background-color: #007bff;
-    color: #fff;
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;

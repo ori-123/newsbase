@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>${article.description}</p>
                     <a href="${article.url}" target="_blank">Read More</a>
                     <img src="${article.image_url}" alt="${article.title}">
+                    <button class="btn delete-article-btn" data-article-id="${article.id}">Delete article</button>
                 `;
                     articlesList.appendChild(articleElement);
                 });
@@ -78,4 +79,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call fetchSavedArticles when the page loads
     fetchSavedArticles();
+
+    // Add event listener to delete article buttons
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('delete-article-btn')) {
+            const articleId = event.target.dataset.articleId;
+            deleteArticle(articleId);
+        }
+    });
+
+    function deleteArticle(articleId) {
+        if (confirm("Are you sure you want to delete this article?")) {
+            fetch(`http:localhost:8000/api/articles/delete_article.php?id=${articleId}`, {
+                method: "DELETE"
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Failed to delete article");
+                    }
+                })
+                .then(data => {
+                    // Article deleted successfully
+                    console.log(data.message);
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error("Error:", error.message);
+                    // Handle error: Display error message to user or retry the request
+                });
+        }
+    }
+
 });

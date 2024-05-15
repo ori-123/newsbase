@@ -25,6 +25,7 @@
 </header>
 
 <main>
+    <button id="add-article-btn" class="btn">Add Article</button>
     <section id="articles-list">
         <!-- Saved articles -->
     </section>
@@ -36,5 +37,10 @@
 
 <!-- JavaScript file -->
 <script src="../scripts/articles.js"></script>
+<script>
+    document.getElementById("add-article-btn").addEventListener("click", function() {
+        window.location.href = "article-upload.html";
+    });
+</script>
 </body>
 </html>

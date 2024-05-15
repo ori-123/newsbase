@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();
             })
             .then(data => {
-                alert(data.message); // Display success message
+                alert(data.message);
             })
             .catch(error => {
                 console.error("Error:", error);

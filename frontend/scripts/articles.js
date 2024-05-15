@@ -22,6 +22,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Add event listener to logout button
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Send request to backend to logout
+            fetch('http://localhost:8000/api/user/logout.php', {
+                method: 'GET'
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+            });
+        });
+    }
+
     // Fetch saved articles
     function fetchSavedArticles() {
         fetch('http://localhost:8000/api/articles/get_articles.php', {

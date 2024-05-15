@@ -4,7 +4,7 @@ namespace includes;
 
 class Logger
 {
-    private static $logFile = '../logs/logfile.log';
+    private static $logFile = __DIR__ . '/../logs/logfile.log';
 
     public static function log($level, $message)
     {

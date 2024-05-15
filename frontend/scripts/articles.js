@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize dropdown menu
+    const profileBtn = document.querySelector('.profile-btn');
+
+    // Get the dropdown content
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    // Add click event listener to the profile button/link
+    profileBtn.addEventListener('click', function(event) {
+        // Prevent default link behavior
+        event.preventDefault();
+
+        // Toggle the visibility of the dropdown content
+        dropdownContent.classList.toggle('show');
+    });
+
+    // Close the dropdown when clicking outside of it
+    document.addEventListener('click', function(event) {
+        if (!event.target.matches('.profile-btn')) {
+            // If the clicked element is not the profile button/link, close the dropdown
+            dropdownContent.classList.remove('show');
+        }
+    });
+
     // Fetch saved articles
     function fetchSavedArticles() {
         fetch('http://localhost:8000/api/articles/get_articles.php', {

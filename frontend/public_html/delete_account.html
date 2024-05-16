@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+    <base href="/newsbase/frontend/public_html/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Delete Account</h1>
+<p>Are you sure you want to delete your account?</p>
+<button id="confirm-delete-btn">Confirm</button>
+<button id="cancel-delete-btn">Cancel</button>
+
+<script>
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+        // Send DELETE request to delete.php endpoint
+        fetch('http://localhost:8000/api/user/delete.php', {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Account deleted successfully, redirect to index.html
+                    window.location.href = 'index.html';
+                } else {
+                    // Failed to delete account, handle error
+                    console.error('Failed to delete account');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            });
+    });
+
+    document.getElementById('cancel-delete-btn').addEventListener('click', function() {
+        // Redirect back to articles.html or any other page
+        window.location.href = 'articles.html';
+    });
+</script>
+</body>
+</html>

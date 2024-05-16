@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../../includes/database.php';
 require_once '../../includes/helpers.php';
@@ -9,7 +10,7 @@ use includes\Logger;
 
 global $pdo;
 
-session_start();
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve the JSON data from the request body
@@ -49,17 +50,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
 
+            print_r($_SESSION);
+
             session_regenerate_id(true);
+
+            print_r($_SESSION);
 
             $pdo->commit();
 
             http_response_code(200); // OK
             echo json_encode(["message" => "User authenticated successfully"]);
             Logger::info("User authenticated successfully");
+
+            print_r($_SESSION);
+
         } else {
+            print_r($_SESSION);
             http_response_code(401); // Unauthorized
             echo json_encode(["error" => "Invalid username or password"]);
             Logger::error("401, Invalid username or password");
+            print_r($_SESSION);
         }
     } catch (PDOException $e) {
         $pdo->rollBack();

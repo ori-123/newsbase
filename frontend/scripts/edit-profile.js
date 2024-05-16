@@ -1,3 +1,5 @@
+import { handleResponse } from './utils.js';
+
 document.addEventListener("DOMContentLoaded", function () {
     const editProfileForm = document.getElementById("edit-profile-form");
 
@@ -27,17 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Make a PUT request to the edit endpoint
         fetch("http://localhost:8000/api/user/edit.php", {
             method: "PUT",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(requestBody)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to update user information");
-                }
-                return response.json();
-            })
+            .then(handleResponse)
             .then(data => {
                 alert(data.message);
             })

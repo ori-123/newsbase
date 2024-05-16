@@ -1,3 +1,5 @@
+import { handleResponse } from './utils.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize dropdown menu
     const profileBtn = document.querySelector('.profile-btn');
@@ -30,11 +32,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Send request to backend to logout
             fetch('http://localhost:8000/api/user/logout.php', {
-                method: 'GET'
+                method: 'GET',
+                credentials: "include"
             })
-            .catch(error => {
-                console.error('Error during logout:', error);
-            });
+                .then(handleResponse)
+                .then(data => {
+                    console.log('Logout successful:', data.message);
+                    // Redirect to login page or perform other actions after logout
+                    window.location.href = '/newsbase/frontend/public_html/index.html';
+                })
+                .catch(error => {
+                    console.error('Error during logout:', error.message);
+                });
         });
     }
 
@@ -42,17 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function fetchSavedArticles() {
         fetch('http://localhost:8000/api/articles/get_articles.php', {
             method: 'GET',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Failed to fetch articles');
-                }
-            })
+            .then(response => response.json()) // Parse response as JSON
             .then(data => {
                 // Clear previous articles
                 const articlesList = document.getElementById('articles-list');
@@ -77,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+
     // Call fetchSavedArticles when the page loads
     fetchSavedArticles();
 
@@ -90,26 +95,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function deleteArticle(articleId) {
         if (confirm("Are you sure you want to delete this article?")) {
-            fetch(`http:localhost:8000/api/articles/delete_article.php?id=${articleId}`, {
-                method: "DELETE"
+            fetch(`http://localhost:8000/api/articles/delete_article.php?id=${articleId}`, {
+                method: "DELETE",
+                credentials: "include"
             })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error("Failed to delete article");
-                    }
-                })
+                .then(handleResponse)
                 .then(data => {
                     // Article deleted successfully
                     console.log(data.message);
-                    window.location.reload();
+                    window.location.href = '/newsbase/frontend/public_html/articles.html';
                 })
                 .catch(error => {
                     console.error("Error:", error.message);
-                    // Handle error: Display error message to user or retry the request
                 });
         }
     }
-
 });

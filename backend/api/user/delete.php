@@ -9,7 +9,14 @@ require_once '../../includes/cors.php';
 require_once '../../vendor/autoload.php';
 
 session_start();
-check_login(); // Check if user is logged in, reroute to login page on failure.
+
+// Check if user is logged in
+if (!check_login()) {
+    http_response_code(401); // Unauthorized
+    echo json_encode(["error" => "User needs to log in to continue"]);
+    Logger::error('401, User needs to log in to continue');
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
     try {
@@ -21,14 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
 
-        // Destroy session (log out user) and reroute to login page
+        // Destroy session (log out user)
         $_SESSION = array();
         session_destroy();
 
         http_response_code(200);
         echo json_encode(['message' => 'User removed successfully.']);
         Logger::info('User removed successfully');
-        header("Location: /login");
         exit();
     } catch (PDOException $e) {
         http_response_code(500); // Internal Server Error

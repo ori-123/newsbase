@@ -11,7 +11,14 @@ require_once '../../includes/cors.php';
 require_once '../../vendor/autoload.php';
 
 session_start();
-check_login(); // Check if user is logged in, reroute to login page on failure.
+
+// Check if user is logged in
+if (!check_login()) {
+    http_response_code(401); // Unauthorized
+    echo json_encode(["error" => "User needs to log in to continue"]);
+    Logger::error('401, User needs to log in to continue');
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] === "PUT") {
     try {

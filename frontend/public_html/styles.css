@@ -50,6 +50,10 @@ header {
     color: #333333;
 }
 
+#delete_account {
+    color: #333333;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;

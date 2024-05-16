@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <base href="/newsbase/frontend/public_html/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <!-- Header, navigation -->
+    <h1 class="logo">Edit Profile</h1>
+    <nav>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#" class="profile-btn">Profile</a>
+                <div class="dropdown-content">
+                    <a href="#">Edit Profile</a>
+                    <a href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="edit-profile-section">
+        <h2>Edit Your Profile</h2>
+        <form id="edit-profile-form">
+            <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" name="current-password" required>
+            </div>
+            <div class="form-group">
+                <label for="new-username">New Username</label>
+                <input type="text" id="new-username" name="new-username" required>
+            </div>
+            <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new-password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn" value="Save Changes">
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer>
+
+</footer>
+
+<!-- JavaScript file -->
+<script type="module" src="../scripts/edit-profile.js"></script>
+</body>
+</html>

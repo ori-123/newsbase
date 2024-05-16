@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Articles</title>
+    <base href="/newsbase/frontend/public_html/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <!-- Header, navigation -->
+    <h1 class="logo">My Articles</h1>
+    <nav>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#" class="profile-btn">Profile</a>
+                <div class="dropdown-content">
+                    <a href="edit_profile.html" id="edit_profile">Edit Profile</a>
+                    <a href="logout.html" id="logout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <button id="add-article-btn" class="btn">Add Article</button>
+    <section id="articles-list">
+        <!-- Saved articles -->
+    </section>
+</main>
+
+<footer>
+
+</footer>
+
+<!-- JavaScript file -->
+<script type="module" src="../scripts/articles.js"></script>
+<script>
+    document.getElementById("add-article-btn").addEventListener("click", function() {
+        window.location.href = "article-upload.html";
+    });
+</script>
+</body>
+</html>

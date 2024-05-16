@@ -8,7 +8,15 @@ require_once '../../includes/cors.php';
 require_once '../../vendor/autoload.php';
 
 session_start();
-check_login(); // Check if user is logged in, reroute to login page on failure.
+
+
+// Check if user is logged in
+if (!check_login()) {
+    http_response_code(401); // Unauthorized
+    echo json_encode(["error" => "User needs to log in to continue"]);
+    Logger::error('401, User needs to log in to continue');
+    exit();
+}
 
 global $pdo;
 
@@ -22,14 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET["id"])) {
 
         // Find article in database
         $get_stmt = $pdo->prepare("SELECT * FROM articles WHERE id = :article_id AND user_id = :user_id");
-        $get_stmt->bindParam('article_id', $article_id, PDO::PARAM_INT);
-        $get_stmt->bindParam('user_id', $user_id, PDO::PARAM_INT);
+        $get_stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);
+        $get_stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $get_stmt->execute();
         $article = $get_stmt->fetch(PDO::FETCH_ASSOC);
 
         // If article is found, delete
         if ($article) {
             $delete_stmt = $pdo->prepare("DELETE FROM articles WHERE id = :id");
+            $delete_stmt->bindParam(':id', $article_id, PDO::PARAM_INT);
             $delete_stmt->execute();
 
             $pdo->commit();

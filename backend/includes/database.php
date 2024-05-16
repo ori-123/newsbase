@@ -17,7 +17,6 @@ $db_pass = $_ENV['DB_PASS'];
 try {
     $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully";
 } catch (PDOException $e) {
     Logger::error("Connection to database failed: " . $e->getMessage());
     die("Connection failed: " . $e->getMessage());

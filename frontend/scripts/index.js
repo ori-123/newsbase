@@ -1,3 +1,5 @@
+import {handleResponse} from "./utils.js";
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get forms from document
     const loginForm = document.getElementById('login-form');
@@ -12,25 +14,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Send request to backend to handle login
         fetch('http://localhost:8000/api/user/login.php', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username: username, password: password })
         })
-            .then(response => {
-                if (response.ok) {
-                    // Redirect to article list page upon successful login
-                    window.location.href = '/frontend/public_html/articles.html';
-                } else {
-                    // Handle login error
-                    console.error('Login failed:', response.statusText);
-                }
+            .then(handleResponse)
+            .then(data => {
+                // Redirect to article list page upon successful login
+                window.location.href = '/newsbase/frontend/public_html/articles.html';
             })
             .catch(error => {
-                console.error('Error during login:', error);
+                console.error('Error during login:', error.message);
             });
     });
 
+    // Add submit event listener to register form
     registerForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('register-username').value;
@@ -39,22 +39,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Make a request to backend to handle registration
         fetch('http://localhost:8000/api/user/register.php', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username: username, password: password })
         })
-            .then(response => {
-                if (response.ok) {
-                    // Redirect to the login page or perform any other actions upon successful registration
-                    window.location.href = '/frontend/public_html/index.html';
-                } else {
-                    // Handle registration error
-                    console.error('Registration failed:', response.statusText);
-                }
+            .then(handleResponse)
+            .then(data => {
+                window.location.href = '/frontend/public_html/index.html';
             })
             .catch(error => {
-                console.error('Error during registration:', error);
+                console.error('Error during registration:', error.message);
             });
     });
 });

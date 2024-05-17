@@ -18,6 +18,6 @@ try {
     $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    Logger::error("Connection to database failed: " . $e->getMessage());
+    Logger::backend_error("Connection to database failed: " . $e->getMessage());
     die("Connection failed: " . $e->getMessage());
 }

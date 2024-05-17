@@ -1,4 +1,5 @@
 import { handleResponse } from './utils.js';
+import {frontendLog} from "./log.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     const editProfileForm = document.getElementById("edit-profile-form");
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert(data.message);
             })
             .catch(error => {
+                frontendLog('error', error)
                 console.error("Error:", error);
             });
     });

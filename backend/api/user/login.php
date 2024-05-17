@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($username) || empty($password)) {
         http_response_code(400); // Bad request
         echo json_encode(["error" => "Username and password are required"]);
-        Logger::error("400, Username and password are required");
+        Logger::backend_error("400, Username and password are required");
         exit();
     }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             http_response_code(200); // OK
             echo json_encode(["message" => "User authenticated successfully"]);
-            Logger::info("User authenticated successfully");
+            Logger::backend_info("User authenticated successfully");
 
             print_r($_SESSION);
 
@@ -68,17 +68,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             print_r($_SESSION);
             http_response_code(401); // Unauthorized
             echo json_encode(["error" => "Invalid username or password"]);
-            Logger::error("401, Invalid username or password");
+            Logger::backend_error("401, Invalid username or password");
             print_r($_SESSION);
         }
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to authenticate user: " . $e->getMessage()]);
-        Logger::error("500, Failed to authenticate user: " . $e->getMessage());
+        Logger::backend_error("500, Failed to authenticate user: " . $e->getMessage());
     }
 } else {
     http_response_code(405); // METHOD not allowed
     echo json_encode(["error" => "Only POST method is allowed"]);
-    Logger::error("405, Only POST method is allowed");
+    Logger::backend_error("405, Only POST method is allowed");
 }

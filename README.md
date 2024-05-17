@@ -59,23 +59,29 @@ React, Vue etc.
 
 <h2 id="getting-started">Getting Started</h2>
 
-1. Create local MySQL database in preferred manner
-2. Create `newsbase` folder
-3. Clone repo in `newsbase` folder
-4. Inside the `backend` folder: `composer install` and `composer update` 
-for good measure
-5. Set database connection and request origin (where you run the frontend) details in `config/.env.example` to desired values,
-      copy and paste it <b>in the same folder</b> and rename it `.env`
-6. Run `newsbase/backend/create_table.sql`
-7. You can use PHP's built-in webserver to run the backend:
-`php -S localhost:8000` for example (change port as needed)
-8. Open `newsbase/frontend/public_html/index.html`
-
 <h3 id="prerequisites">Prerequisites</h3>
 
 * PHP 8.1
 * Composer
 * MySQL
+* Apache
+
+There are multiple ways to run the application, this is one sequence:
+
+1. Create local MySQL database in preferred manner
+2. Clone repo to Apache htdocs' `newsbase` folder
+3. Inside the `backend` folder: `composer install` and `composer update` for good measure
+4. Set database connection and request origin (where you run the frontend, if you follow this sequence it's just http://localhost)
+   details in `config/.env.example` to desired values, copy and paste it <b>in the same folder</b> and rename it to `.env`
+5. Run `newsbase/backend/create_table.sql`
+6. You can run `npm install` in the frontend folder (you'll need node package manager for this), but there are no dependencies,
+   it's only metadata.
+7. You can use PHP's built-in webserver to run the backend: `php -S localhost:8000`. You _can_ change the port, but for simplicity's
+   sake and to allow for not using any serious frontend frameworks and bundles, it _is_ hardcoded in the fetches, so you'll have
+   to change those also in the script files. So recomment sticking with 8000.
+8. Start Apache server (`httpd.exe -k start` on Windows machines)
+9. Open `http://localhost/newsbase/frontend/public_html/index.html` or `http://localhost/newsbase/public_html/index.php` in
+   a browser.
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
 

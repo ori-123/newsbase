@@ -1,4 +1,5 @@
 import {handleResponse} from "./utils.js";
+import {frontendLog} from "./log.js";
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize dropdown menu
@@ -37,12 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(handleResponse)
                 .then(data => {
-                    console.log('Logout successful:', data.message);
+                    frontendLog('info', data.message);
                     // Redirect to login page or perform other actions after logout
                     window.location.href = '/newsbase/frontend/public_html/index.html';
                 })
                 .catch(error => {
-                    console.error('Error during logout:', error.message);
+                    frontendLog('error', error.message);
                 });
         });
     }
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error fetching articles:', error.message);
+                frontendLog('error', error.message)
             });
     }
 
@@ -137,9 +139,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     // Article deleted successfully
                     console.log(data.message);
+                    frontendLog('info', data.message);
                     fetchSavedArticles(); // Reload articles after deletion
                 })
                 .catch(error => {
+                    frontendLog('error', error.message);
                     console.error("Error:", error.message);
                 });
         }

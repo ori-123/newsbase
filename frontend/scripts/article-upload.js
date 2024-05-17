@@ -1,4 +1,5 @@
 import { handleResponse } from './utils.js';
+import {frontendLog} from "./log.js";
 
 document.addEventListener("DOMContentLoaded", function() {
     // Get the form element
@@ -16,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
             description: formData.get('description'),
             image_url: formData.get('image-url')
         };
-        console.log(articleData);
 
         // Send the form data to the server using fetch
         fetch("http://localhost:8000/api/articles/save_article.php", {
@@ -27,12 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(handleResponse)
             .then(data => {
                 // Article uploaded successfully
-                console.log(data.message); // Log success message
+                frontendLog('info', data.message);
                 // Redirect to articles page
                 window.location.href = '/frontend/public_html/articles.html';
             })
             .catch(error => {
-                console.error("Error:", error.message); // Log error message
+                frontendLog('error', error.message) // Log error message
             });
     });
 });

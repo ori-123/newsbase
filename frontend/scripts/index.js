@@ -1,4 +1,5 @@
 import {handleResponse} from "./utils.js";
+import {frontendLog} from "./log.js";
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get forms from document
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/newsbase/frontend/public_html/articles.html';
             })
             .catch(error => {
-                console.error('Error during login:', error.message);
+                frontendLog('error', error.message);
             });
     });
 
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/frontend/public_html/index.html';
             })
             .catch(error => {
-                console.error('Error during registration:', error.message);
+                frontendLog('error', error.message);
             });
     });
 });

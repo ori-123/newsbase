@@ -16,7 +16,7 @@ session_start();
 if (!check_login()) {
     http_response_code(401); // Unauthorized
     echo json_encode(["error" => "User needs to log in to continue"]);
-    Logger::error('401, User needs to log in to continue');
+    Logger::backend_error('401, User needs to log in to continue');
     exit();
 }
 
@@ -56,15 +56,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         http_response_code(201); // Created
         echo json_encode(["message" => "Article saved successfully"]);
-        Logger::info("Article saved successfully");
+        Logger::backend_info("Article saved successfully");
     } catch (PDOException $e) {
         $pdo->rollBack();
         http_response_code(500); // Internal Server Error
         echo json_encode(["error" => "Failed to save article: " . $e->getMessage()]);
-        Logger::error("500, Failed to save article: " . $e->getMessage());
+        Logger::backend_error("500, Failed to save article: " . $e->getMessage());
     }
 } else {
     http_response_code(405); // Method Not Allowed
     echo json_encode(["error" => "Only POST method is allowed"]);
-    Logger::error("405, Only POST method is allowed");
+    Logger::backend_error("405, Only POST method is allowed");
 }

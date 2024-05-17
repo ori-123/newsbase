@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => {
                 frontendLog('error', error.message) // Log error message
+                alert('Article upload failed, please try again!')
             });
     });
 });

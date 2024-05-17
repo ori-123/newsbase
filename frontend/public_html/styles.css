@@ -91,10 +91,21 @@ header {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 16px;
 }
 
 .btn:hover {
     background-color: #0056b3;
+}
+
+/* Form container styling */
+.form-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
 /* Form styling */
@@ -126,4 +137,68 @@ header {
 
 .form-group input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+/* Grid container for articles */
+#articles-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid with minimum item width of 300px */
+    gap: 20px; /* Spacing between articles */
+}
+
+/* Article card styling */
+.article {
+    position: relative;
+    background-color: #ffffff; /* Card background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+    overflow: hidden; /* Hide overflowing content */
+}
+
+.article h2 {
+    font-size: 1.5rem; /* Title font size */
+    margin-top: 0; /* Remove margin */
+}
+
+.article p {
+    margin-bottom: 15px; /* Bottom margin for description */
+}
+
+.article img {
+    max-width: 100%; /* Maximum width for images */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.article a {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Link color */
+    font-weight: bold; /* Bold font */
+}
+
+.article a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Delete button styling */
+.delete-article-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-article-btn:hover {
+    background-color: #c82333;
+}
+
+.article img {
+    display: block;
+    max-width: 40%;
+    height: auto;
+    margin-bottom: 10px;
 }

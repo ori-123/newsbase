@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(handleResponse)
             .then(data => {
-                alert(data.message);
+                alert('Data changed. The servers response: ' + data.status);
             })
             .catch(error => {
                 frontendLog('error', error)

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Article uploaded successfully
                 frontendLog('info', data.message);
                 // Redirect to articles page
-                window.location.href = '/frontend/public_html/articles.html';
+                window.location.href = 'articles.html';
             })
             .catch(error => {
                 frontendLog('error', error.message) // Log error message

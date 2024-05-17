@@ -1,0 +1,15 @@
+{
+  "name": "newsbase",
+  "version": "1.0.0",
+  "proxy": "http://localhost:8000/api",
+  "description": "Test project for Delocal",
+  "main": "index.html",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ori-123/newsbase.git"
+  },
+  "author": "Oresztész Fokasz (Ori)",
+  "license": "ISC",
+  "homepage": "https://github.com/ori-123/newsbase#readme"
+}

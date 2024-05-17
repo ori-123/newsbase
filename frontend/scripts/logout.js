@@ -1,4 +1,5 @@
-import { handleResponse } from './utils.js';
+import {handleResponse} from "./utils.js";
+import {frontendLog} from "./log.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('http://localhost:8000/api/user/logout.php', {
@@ -9,5 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
         .then(handleResponse)
-        .then(() => {window.location.href = '/frontend/public_html/index.html'})
+        .then(data => {
+            frontendLog('info', data.message);
+            // Redirect to login page
+            window.location.href = 'index.html';
+        })
+        .catch(error => {
+            frontendLog('error', error.message);
+        });
 });

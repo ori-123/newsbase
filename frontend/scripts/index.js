@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(handleResponse)
             .then(data => {
                 // Redirect to article list page upon successful login
-                window.location.href = '/newsbase/frontend/public_html/articles.html';
+                window.location.href = 'articles.html';
             })
             .catch(error => {
                 frontendLog('error', error.message);
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
             .then(handleResponse)
             .then(data => {
-                window.location.href = '/frontend/public_html/index.html';
+                window.location.href = 'index.html';
             })
             .catch(error => {
                 frontendLog('error', error.message);

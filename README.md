@@ -73,7 +73,9 @@ for good measure
 
 <h3 id="prerequisites">Prerequisites</h3>
 
-PHP 8.1, Composer
+* PHP 8.1
+* Composer
+* MySQL
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>
 

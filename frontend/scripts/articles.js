@@ -25,29 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add event listener to logout button
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-
-            // Send request to backend to logout
-            fetch('http://localhost:8000/api/user/logout.php', {
-                method: 'GET',
-                credentials: "include"
-            })
-                .then(handleResponse)
-                .then(data => {
-                    frontendLog('info', data.message);
-                    // Redirect to login page or perform other actions after logout
-                    window.location.href = '/newsbase/frontend/public_html/index.html';
-                })
-                .catch(error => {
-                    frontendLog('error', error.message);
-                });
-        });
-    }
-
     // Fetch saved articles
     function fetchSavedArticles() {
         fetch('http://localhost:8000/api/articles/get_articles.php', {

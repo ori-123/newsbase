@@ -38,11 +38,7 @@ React, Vue etc.
         <li><a href="#implemented-features">Implemented features</a></li>
       </ul>
     </li>
-     <li>
-       <a href="#getting-started">Getting Started</a>
-      <ul>
-      <li><a href="#prerequisites">Prerequisites</a></li>
-     </li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact-author">Contact Authors</a></li>
   </ol>
@@ -95,7 +91,7 @@ There are multiple ways to run the application, this is one sequence:
 4. User CRUD
 5. Article CRUD
 6. Persistence
-7. Logging (Logfile: newsbase/backend/logs/backend_logs.log)
+7. Logging (Logfile: `newsbase/backend/logs/backend_logs.log`)
 
 ### Frontend:
 
@@ -108,7 +104,7 @@ There are multiple ways to run the application, this is one sequence:
 7. Article save form
 8. Article deletion
 9. Article search in titles
-10. Logging (Logfile: newsbase/backend/logs/frontend_logs.log)
+10. Logging (Logfile: `newsbase/backend/logs/frontend_logs.log`)
 11. CSS styling, logos, icons
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>

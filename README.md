@@ -89,7 +89,7 @@ for good measure
 4. User CRUD
 5. Article CRUD
 6. Persistence
-7. Logging
+7. Logging (Logfile: newsbase/backend/logs/backend_logs.log)
 
 ### Frontend:
 
@@ -102,7 +102,7 @@ for good measure
 7. Article save form
 8. Article deletion
 9. Article search in titles
-10. Logging
+10. Logging (Logfile: newsbase/backend/logs/frontend_logs.log)
 11. CSS styling, logos, icons
 
 <p align="right">(<a href="#about-the-project">back to top</a>)</p>

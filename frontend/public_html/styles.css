@@ -1,27 +1,41 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 /* Header styling */
 header {
+    position: relative;
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .logo {
     font-size: 24px;
     font-weight: bold;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+#logo-image {
+    height: 70px;
+    width: auto;
+    margin-right: 10px;
 }
 
 .nav-links {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
 }
 
 .nav-links li {
-    display: inline-block;
-    margin-right: 20px;
+    margin-left: 10px;
 }
 
 .nav-links li a {
@@ -35,11 +49,33 @@ header {
 }
 
 .profile-btn {
-    display: inline-block;
     padding: 10px;
     color: #fff;
     text-decoration: none;
-    cursor: pointer; /* Add cursor pointer */
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+}
+
+.search-btn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #edit_profile {
@@ -62,8 +98,14 @@ header {
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
-    border-radius: 5px; /* Add border radius */
-    overflow: hidden; /* Add overflow hidden */
+    border-radius: 5px;
+    overflow: hidden;
+    right: 0;
+}
+
+#user-icon {
+    height: 50px;
+    width: auto;
 }
 
 .dropdown-content a {

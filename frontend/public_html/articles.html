@@ -6,19 +6,22 @@
     <title>My Articles</title>
     <base href="/newsbase/frontend/public_html/">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
 </head>
 <body>
 <header>
-    <!-- Header, navigation -->
+    <a href="articles.html"><img src="https://github.com/ori-123/newsbase/blob/main/newsbase-high-resolution-logo.png?raw=true" id="logo-image" alt="Newsbase logo"></a>
     <h1 class="logo">My Articles</h1>
     <div>
         <input type="text" id="search-input" placeholder="Search articles...">
         <button id="search-btn" class="btn">Search in titles</button>
+        <button id="add-article-btn" class="btn">Add Article</button>
     </div>
     <nav>
         <ul class="nav-links">
             <li class="dropdown">
-                <a href="#" class="profile-btn">Profile</a>
+                <a class="profile-btn"><img src="https://github.com/ori-123/newsbase/blob/main/user.png?raw=true" id="user-icon" alt="Profile"></a>
                 <div class="dropdown-content">
                     <a href="edit_profile.html" id="edit_profile">Edit Profile</a>
                     <a href="logout.html" id="logout">Logout</a>
@@ -30,7 +33,6 @@
 </header>
 
 <main>
-    <button id="add-article-btn" class="btn">Add Article</button>
     <section id="articles-list">
         <!-- Saved articles -->
     </section>

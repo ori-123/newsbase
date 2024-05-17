@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 frontendLog('error', error.message);
+                alert('Could not log in, please try again')
             });
     });
 
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 frontendLog('error', error.message);
+                alert('Could not sign up, please try again later')
             });
     });
 });

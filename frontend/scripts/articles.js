@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error fetching articles:', error.message);
-                frontendLog('error', error.message)
+                frontendLog('error', error.message);
+                alert('Something went wrong with fetching your articles, please try again later')
             });
     }
 
@@ -145,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => {
                     frontendLog('error', error.message);
                     console.error("Error:", error.message);
+                    alert('Could not delete article, please try again later')
                 });
         }
     }

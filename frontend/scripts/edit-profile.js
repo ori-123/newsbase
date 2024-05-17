@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => {
                 frontendLog('error', error)
                 console.error("Error:", error);
+                alert('Could not modify data, please try again later')
             });
     });
 });

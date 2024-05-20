@@ -74,7 +74,7 @@ There are multiple ways to run the application, this is one sequence:
    it's only metadata.
 7. You can use PHP's built-in webserver to run the backend: `php -S localhost:8000`. You _can_ change the port, but for simplicity's
    sake and to allow for not using any serious frontend frameworks and bundles, it _is_ hardcoded in the fetches, so you'll have
-   to change those also in the script files. So recomment sticking with 8000.
+   to change those also in the script files. So recommend sticking with 8000.
 8. Start Apache server (`httpd.exe -k start` on Windows machines)
 9. Open `http://localhost/newsbase/frontend/public_html/index.html` or `http://localhost/newsbase/public_html/index.php` in
    a browser.
